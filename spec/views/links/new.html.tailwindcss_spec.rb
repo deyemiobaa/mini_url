@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "links/new", type: :view do
   before(:each) do
+    assign(:custom, true)
     assign(:link, Link.new(
       long_url: "MyString",
       short_url: "MyString",
@@ -17,8 +18,6 @@ RSpec.describe "links/new", type: :view do
       assert_select "input[name=?]", "link[long_url]"
 
       assert_select "input[name=?]", "link[short_url]"
-
-      assert_select "input[name=?]", "link[clicks]"
     end
   end
 end
