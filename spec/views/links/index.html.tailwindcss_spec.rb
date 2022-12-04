@@ -7,12 +7,12 @@ RSpec.describe "links/index", type: :view do
     assign(:links, [
       Link.create!(
         long_url: "Long Url",
-        short_url: "Short Url1",
+        slug: "slug1",
         clicks: 2
       ),
       Link.create!(
         long_url: "Long Url",
-        short_url: "Short Urll",
+        slug: "slug2",
         clicks: 2
       )
     ])
@@ -21,7 +21,7 @@ RSpec.describe "links/index", type: :view do
   it "renders a list of links" do
     render
     cell_selector = 'td'
-    assert_select cell_selector, text: Regexp.new("Short".to_s), count: 2
+    assert_select cell_selector, text: Regexp.new("slug".to_s), count: 2
     assert_select cell_selector, text: Regexp.new(2.to_s), count: 2
 
     assert_select "form[action=?][method=?]", links_path, "post" do

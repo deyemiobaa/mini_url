@@ -5,7 +5,7 @@ RSpec.describe "links/new", type: :view do
     assign(:custom, true)
     assign(:link, Link.new(
       long_url: "MyString",
-      short_url: "MyString",
+      slug: "MyString",
       clicks: 1
     ))
   end

@@ -4,7 +4,7 @@ RSpec.describe Link, type: :model do
   it "is valid with valid attributes" do
     link = Link.new(
       long_url: "https://www.google.com/this_is_my_custom_long_url", 
-      short_url: "http://www.miniurl.com/short_url"
+      slug: "regexslug"
     )
     expect(link).to be_valid
   end
@@ -12,7 +12,7 @@ RSpec.describe Link, type: :model do
   it "is not valid without a long_url" do
     link = Link.new(
       long_url: nil, 
-      short_url: "http://www.miniurl.com/short_url"
+      slug: "http23kk"
     )
     expect(link).to_not be_valid
   end
@@ -20,7 +20,7 @@ RSpec.describe Link, type: :model do
   it "is not valid without a short_url" do
     link = Link.new(
       long_url: "https://www.google.com/this_is_my_custom_long_url", 
-      short_url: nil
+      slug: nil
     )
     expect(link).to_not be_valid
   end
