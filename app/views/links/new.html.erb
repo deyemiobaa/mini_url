@@ -1,7 +1,7 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New link</h1>
+<div class="w-full mx-auto md:w-2/3">
+  <h1 class="mb-20 text-4xl font-bold text-center">Create custom link</h1>
 
-  <%= render "form", link: @link %>
+  <%= render "form", link: @link, custom: true %>
 
   <%= link_to 'Back to links', links_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
