@@ -1,6 +1,6 @@
 <tr id="<%= dom_id link %>">
   <td class="px-3 py-4 text-sm font-normal text-left break-words bg-light">
-    <%= link.short_url %>
+    <%= link_to "https://mini.url/#{link.slug}", redirect_path(link.slug), target: "_blank", class: "hover:underline cursor-pointer" %>
   </td>
   <td class="px-3 py-4 text-sm font-normal text-left break-words bg-light">
     <%= link.clicks %>

@@ -1,5 +1,6 @@
+require 'securerandom'
 class LinksController < ApplicationController
-  before_action :set_link, only: %i[ show edit update destroy ]
+  before_action :create_new_slug, only: %i[ create ]
 
   # GET /links or /links.json
   def index
@@ -7,65 +8,37 @@ class LinksController < ApplicationController
     @links = Link.all
   end
 
-  # GET /links/1 or /links/1.json
-  def show
-  end
-
   # GET /links/new
   def new
     @link = Link.new
   end
 
-  # GET /links/1/edit
-  def edit
-  end
-
   # POST /links or /links.json
   def create
     @link = Link.new(link_params)
-
+    @link.slug = create_new_slug if link_params[:slug].blank?
     respond_to do |format|
       if @link.save
-        format.html { redirect_to link_url(@link), notice: "Link was successfully created." }
-        format.json { render :show, status: :created, location: @link }
+        format.html { redirect_to links_path, notice: "Mini url was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity,  alert: "Mini url was not created." }
       end
     end
   end
 
-  # PATCH/PUT /links/1 or /links/1.json
-  def update
-    respond_to do |format|
-      if @link.update(link_params)
-        format.html { redirect_to link_url(@link), notice: "Link was successfully updated." }
-        format.json { render :show, status: :ok, location: @link }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /links/1 or /links/1.json
-  def destroy
-    @link.destroy
-
-    respond_to do |format|
-      format.html { redirect_to links_url, notice: "Link was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  def redirect
+    link = Link.find_by(slug: params[:slug])
+    link.update_click_count
+    redirect_to link.long_url, allow_other_host: true
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_link
-      @link = Link.find(params[:id])
+    def create_new_slug
+      SecureRandom.hex(Random.rand(3..6))
     end
 
     # Only allow a list of trusted parameters through.
     def link_params
-      params.require(:link).permit(:long_url, :short_url, :clicks)
+      params.require(:link).permit(:long_url, :slug)
     end
 end

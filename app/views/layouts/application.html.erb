@@ -12,7 +12,13 @@
   </head>
 
   <body>
-    <main class="container flex px-5 mx-auto mt-10">
+    <main class="container relative flex px-5 mx-auto mt-10">
+        <% if notice.present? %>
+          <p class="absolute left-0 inline-block px-3 py-2 mb-5 font-medium text-green-500 rounded-lg top-5 bg-green-50" id="notice"><%= notice %></p>
+        <% end %>
+        <% if alert.present? %>
+          <p class="absolute left-0 inline-block px-3 py-2 mb-5 font-medium text-red-500 rounded-lg top-5 bg-red-50" id="notice"><%= notice %></p>
+        <% end %>
       <%= yield %>
     </main>
   </body>
