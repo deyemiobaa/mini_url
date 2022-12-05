@@ -34,7 +34,7 @@ class LinksController < ApplicationController
 
   private
     def create_new_slug
-      SecureRandom.hex(Random.rand(3..6))
+      SecureRandom.hex(5)
     end
 
     # Only allow a list of trusted parameters through.
